@@ -1,0 +1,78 @@
+body {
+ font-family: Helvetica, Verdana, Arial, sans-serif;
+}
+
+h1 {
+	margin:0px;
+	padding:0px;
+	padding-top:5px;
+	font-size:1.4em;
+}
+
+h2 {
+	margin:0px;
+	padding:0px;
+	font-size:1.1em;
+	display: inline;
+}
+
+h3 {
+	margin:0px;
+	padding:0px;
+	margin-top:5px;
+	font-size:0.8em;
+	font-weight:normal;
+}
+
+a:link, a:visited {
+        text-decoration: none;
+        color: black;
+}
+
+a:hover {
+        text-decoration: underline;
+}
+
+@media screen
+{
+    h3.highlightyellow {
+        background-color:#FFE920;
+    }
+    h3.highlightgreen {
+        background-color:#2DC800;
+    }
+}
+
+@media print
+{
+    h3.highlightyellow {
+        border: 1px solid;
+    }
+    h3.highlightgreen {
+        border: 1px dotted;
+    }
+}
+
+p{
+    padding: 0px;
+    margin: 0px;
+    font-size: 0.8em;
+}
+
+div.comments{
+    padding-left:30px;
+    padding-top:5px;
+}
+
+div.homelink{
+    position:absolute;
+    right:10px;
+    font-size: 0.8em;
+}
+
+hr {
+	clear: both;
+	border: 0px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+}
