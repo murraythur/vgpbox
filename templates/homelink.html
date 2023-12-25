@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Daily Brief</title>
+<link href="/brief.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+[% IF comments %]
+    <div class="homelink"><a href="./nocomments">Hide comments</a> | <a href="/">Home</a></div>
+[% ELSE %]
+    <div class="homelink"><a href="/brief/[% period %]">Show comments</a> | <a href="/">Home</a></div>
+[% END %]
+
+<div class="body">
+
+
+[% FOREACH task IN tasks %]
+    [% IF task.ships %]
+        <h1>[% task.name | html_entity %]</h1>
+        [% FOREACH ship IN task.ships %]
+            <h2>[% ship.name | html_entity %]</h2> [% IF ship.programme %]([% ship.programme | html_entity %])[% END %]
+            [% FOREACH opdef IN ship.opdefs %]
+                [% IF opdef.modified.epoch > time - 86400 * period OR (opdef.comments.first.time.epoch AND opdef.comments.first.time.epoch > time - 86400 * period) %]
+                    [% IF opdef.rectified %]
+                        <h3 class="highlightgreen">
+                    [% ELSE %]
+                        <h3 class="highlightyellow">
+                    [% END %]
+                [% ELSE %]
+                    <h3>
+                [% END %]
+                <a href="/opdef/[% opdef.id %]">OPDEF [% opdef.type %] [% opdef.number_serial %]-[% opdef.number_year %] ([% opdef.category.name %])</a>:
+                        [% IF opdef.rectified %]<strong>Rectified</strong>[% END %]
+                        [% IF opdef.created.epoch > time - 86400 * period %]<strong>New</strong>[% END %]
+               	        [% opdef.line5 | html_entity %] ([% opdef.parent_equip | html_entity %])
+               	        [% IF opdef.modified.epoch > time - 86400 * period %]<em>[% opdef.modified_sigtype.name %]</em>[% END %]
+               	        </h3>
+               	[% IF comments %]
+                    <div class="comments">
+                    [% FOREACH comment IN opdef.comments %]
+                        [% LAST IF loop.index == 10 %]
+                            <p><u>[% comment.time.ymd %] (by [% comment.user.username %])</u>: [% FILTER html_line_break %][% comment.comment | html_entity %][% END %]</p>
+                    [% END %]
+                    </div>
+                [% END %]
+            [% END %]
+            <p>&nbsp;</p>
+        [% END %]
+    [% END %]
+    <hr>
+[% END %]
+
+</div>
+
+</body></html>
