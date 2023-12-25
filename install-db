@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#  Versão local do Perl 5
+pv=`perl -v|grep 'This is perl'`
+
+[[ $pv =~ v([.0-9]+) ]]
+perlv=${BASH_REMATCH[1]}
+
+install -m 644 ADBOS/* /usr/local/share/perl/$perlv/ADBOS/
+mkdir -p /usr/local/share/perl/$perlv/ADBOS/Schema/Result
+install -m 644 ADBOS/Schema/Result/* /usr/local/share/perl/$perlv/ADBOS/Schema/Result
+install -m 755 process-sigs /usr/local/opdef/
+install -m 755 serial-dump /usr/local/opdef/
+install -m 755 testparse.pl /usr/local/opdef/
+install -m 755 process-sigs.rc /etc/init.d/
+install -m 755 serial-dump.rc /etc/init.d/
